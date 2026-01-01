@@ -1,39 +1,91 @@
-<div id="table1"></div>
-<div id="table2"></div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Two Tables from Google Sheets</title>
 
-<script>
-fetch("https://script.googleusercontent.com/macros/echo?user_content_key=AehSKLjhSHDSWF3Qg6PaiRMib4UqorMoNLdifcIEtLk4spsu3CN0XMvhhzsSIhSK6Pxeiys5Z8ImLuNpxr6D6kI67o1_IrTLhaMs5BfmfGR87OEXZdv-Os7CtZV6gJjg7dUBDuyMUCz2rDduw8lcp0ikNPvEn-DSaReUP4WZTD1DdZW3PH0hBP6Sx9v1emSf8RlpXgwKMSwi58xPQLchOqo1v4dUCxtnyzcpBHHpL-61aM6o0yHgupUvIYhZOpqT91-dM48avcL2uepbJ2SQrpzKujxjtYeueg&lib=MyzoXwVkZjjwZfhgvZ0fyVmP12o58eKUy")
-  .then(res => res.json())
-  .then(data => {
-    createTable(data.table1, "table1");
-    createTable(data.table2, "table2");
-  });
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
 
-function createTable(data, containerId) {
-  if (!data.length) return;
+    table {
+      border-collapse: collapse;
+      margin-bottom: 30px;
+      width: 100%;
+    }
 
-  const table = document.createElement("table");
-  table.border = "1";
+    th, td {
+      border: 1px solid #444;
+      padding: 8px;
+      text-align: left;
+    }
 
-  // header
-  const thead = table.createTHead();
-  const headerRow = thead.insertRow();
-  Object.keys(data[0]).forEach(key => {
-    const th = document.createElement("th");
-    th.textContent = key;
-    headerRow.appendChild(th);
-  });
+    th {
+      background-color: #f2f2f2;
+    }
 
-  // body
-  const tbody = table.createTBody();
-  data.forEach(row => {
-    const tr = tbody.insertRow();
-    Object.values(row).forEach(val => {
-      const td = tr.insertCell();
-      td.textContent = val;
-    });
-  });
+    .empty {
+      color: #888;
+      font-style: italic;
+      margin-bottom: 30px;
+    }
+  </style>
+</head>
+<body>
 
-  document.getElementById(containerId).appendChild(table);
-}
-</script>
+  <h2>Table 1 (9:30)</h2>
+  <div id="table1"></div>
+
+  <h2>Table 2 (10:30)</h2>
+  <div id="table2"></div>
+
+  <script>
+    const URL = "https://script.google.com/macros/s/AKfycbyxsLh1BUHoRzAtWz2jq4VUV2MhIKnmPyXUJ5uPqmCVNybN5eBM8T1CT95mImKvOfjw/exec";
+
+    fetch(URL)
+      .then(res => res.json())
+      .then(data => {
+        renderTable(data.table1, "table1", "No data for 9:30");
+        renderTable(data.table2, "table2", "No data for 10:30");
+      })
+      .catch(err => {
+        console.error("Fetch error:", err);
+      });
+
+    function renderTable(data, containerId, emptyMessage) {
+      const container = document.getElementById(containerId);
+
+      if (!data || data.length === 0) {
+        container.innerHTML = `<div class="empty">${emptyMessage}</div>`;
+        return;
+      }
+
+      const table = document.createElement("table");
+
+      // Header
+      const thead = table.createTHead();
+      const headerRow = thead.insertRow();
+      Object.keys(data[0]).forEach(key => {
+        const th = document.createElement("th");
+        th.textContent = key;
+        headerRow.appendChild(th);
+      });
+
+      // Body
+      const tbody = table.createTBody();
+      data.forEach(row => {
+        const tr = tbody.insertRow();
+        Object.values(row).forEach(value => {
+          const td = tr.insertCell();
+          td.textContent = value;
+        });
+      });
+
+      container.appendChild(table);
+    }
+  </script>
+
+</body>
+</html>
