@@ -34,10 +34,13 @@
 
     .table-header {
       display: flex;
-      justify-content: space-between;
+      justify-content: flex-end; /* Push content to right */
       font-size: 20px;
       font-weight: bold;
       margin-bottom: 10px;
+      width: 100%; /* Make sure both headers span full width */
+      box-sizing: border-box;
+    }
     }
   </style>
 </head>
@@ -50,9 +53,8 @@
   <div id="table1"></div>
 
   <div class="table-header">
-    <span style="margin-left:auto;">Masa : 10:30</span>
+    <span>Masa : 10:30</span>
   </div>
-  <div id="table2"></div>
 
   <script>
     const URL = "https://script.google.com/macros/s/AKfycbyxsLh1BUHoRzAtWz2jq4VUV2MhIKnmPyXUJ5uPqmCVNybN5eBM8T1CT95mImKvOfjw/exec";
