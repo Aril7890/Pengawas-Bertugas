@@ -14,12 +14,16 @@
       border-collapse: collapse;
       margin-bottom: 30px;
       width: 100%;
+      table-layout: fixed; /* Important: makes fixed widths work */
     }
 
     th, td {
       border: 1px solid #444;
       padding: 8px;
       text-align: left;
+      overflow: hidden;
+      text-overflow: ellipsis; /* Optional: handle long text */
+      white-space: nowrap;
     }
 
     th {
@@ -39,17 +43,23 @@
       font-weight: bold;
       margin-bottom: 10px;
     }
+
+    .table-header span.right {
+      margin-left: auto;
+    }
   </style>
 </head>
 <body>
 
   <div class="table-header">
     <span id="tarikh930"></span>
-    <span>Masa : 9:30</span>
+    <span class="right">Masa : 9:30</span>
   </div>
   <div id="table1"></div>
 
-  <p style="text-align: right;">Masa: 10:30</p>
+  <div class="table-header">
+    <span class="right">Masa : 10:30</span>
+  </div>
   <div id="table2"></div>
 
   <script>
@@ -74,9 +84,13 @@
       // Header
       const thead = table.createTHead();
       const headerRow = thead.insertRow();
-      Object.keys(data[0]).forEach(key => {
+      Object.keys(data[0]).forEach((key, index) => {
         const th = document.createElement("th");
         th.textContent = key;
+
+        // Set fixed widths for Nama and Kelas/Tugas columns
+        if (key.toLowerCase() === "nama") th.style.width = "200px";
+        if (key.toLowerCase() === "kelas" || key.toLowerCase() === "tugas") th.style.width = "150px";
 
         headerRow.appendChild(th);
       });
@@ -85,9 +99,13 @@
       const tbody = table.createTBody();
       data.forEach(row => {
         const tr = tbody.insertRow();
-        Object.values(row).forEach(value => {
+        Object.entries(row).forEach(([key, value]) => {
           const td = tr.insertCell();
           td.textContent = value;
+
+          // Apply same fixed width to td cells
+          if (key.toLowerCase() === "nama") td.style.width = "200px";
+          if (key.toLowerCase() === "kelas" || key.toLowerCase() === "tugas") td.style.width = "150px";
         });
       });
 
