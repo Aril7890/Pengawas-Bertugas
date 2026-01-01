@@ -77,6 +77,9 @@
       Object.keys(data[0]).forEach(key => {
         const th = document.createElement("th");
         th.textContent = key;
+
+        if (key === "Nama") td.style.width = "200px";
+        if (key === "Kelas") td.style.width = "150px";
         headerRow.appendChild(th);
       });
 
