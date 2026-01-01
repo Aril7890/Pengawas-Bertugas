@@ -34,12 +34,10 @@
 
     .table-header {
       display: flex;
+      justify-content: space-between;
       font-size: 20px;
       font-weight: bold;
       margin-bottom: 10px;
-      width: 100%; /* Make sure both headers span full width */
-      box-sizing: border-box;
-    }
     }
   </style>
 </head>
@@ -51,9 +49,8 @@
   </div>
   <div id="table1"></div>
 
-  <div class="table-header">
-    <span>Masa : 10:30</span>
-  </div>
+  <h2>Table 2 (10:30)</h2>
+  <div id="table2"></div>
 
   <script>
     const URL = "https://script.google.com/macros/s/AKfycbyxsLh1BUHoRzAtWz2jq4VUV2MhIKnmPyXUJ5uPqmCVNybN5eBM8T1CT95mImKvOfjw/exec";
