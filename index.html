@@ -30,12 +30,24 @@
       color: #888;
       font-style: italic;
       margin-bottom: 30px;
+
+    .table-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+      
     }
   </style>
 </head>
 <body>
 
-  <h2>Table 1 (9:30)</h2>
+  <div class="table-header">
+    <span id="tarikh930"></span>
+    <span>Masa : 9:30</span>
+  </div>
   <div id="table1"></div>
 
   <h2>Table 2 (10:30)</h2>
@@ -62,6 +74,10 @@
         return;
       }
 
+      const today = new Date();
+      const formattedDate = today.toLocaleDateString("en-GB"); // DD/MM/YYYY
+      document.getElementById("tarikh930").textContent = "Tarikh : " + formattedDate;
+      
       const table = document.createElement("table");
 
       // Header
