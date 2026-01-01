@@ -5,8 +5,8 @@
 fetch("https://script.googleusercontent.com/macros/echo?user_content_key=AehSKLjhSHDSWF3Qg6PaiRMib4UqorMoNLdifcIEtLk4spsu3CN0XMvhhzsSIhSK6Pxeiys5Z8ImLuNpxr6D6kI67o1_IrTLhaMs5BfmfGR87OEXZdv-Os7CtZV6gJjg7dUBDuyMUCz2rDduw8lcp0ikNPvEn-DSaReUP4WZTD1DdZW3PH0hBP6Sx9v1emSf8RlpXgwKMSwi58xPQLchOqo1v4dUCxtnyzcpBHHpL-61aM6o0yHgupUvIYhZOpqT91-dM48avcL2uepbJ2SQrpzKujxjtYeueg&lib=MyzoXwVkZjjwZfhgvZ0fyVmP12o58eKUy")
   .then(res => res.json())
   .then(data => {
-    createTable(data.tableOutput, "table1");
-    createTable(data.tableSecond, "table2");
+    createTable(data.table1, "table1");
+    createTable(data.table2, "table2");
   });
 
 function createTable(data, containerId) {
