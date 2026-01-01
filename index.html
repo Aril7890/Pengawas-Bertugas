@@ -49,7 +49,9 @@
   </div>
   <div id="table1"></div>
 
-  <h2>Table 2 (10:30)</h2>
+  <div class="table-header">
+    <span>Masa : 10:30</span>
+  </div>
   <div id="table2"></div>
 
   <script>
@@ -82,8 +84,7 @@
 
       // Set date header using data
       if (data[0].Tarikh && containerId === "table1") {
-        document.getElementById("tarikh930").textContent =
-          "Tarikh : " + formatTarikh(data[0].Tarikh);
+        document.getElementById("tarikh930").textContent = "Tarikh : " + formatTarikh(data[0].Tarikh);
       }
 
       const table = document.createElement("table");
@@ -130,8 +131,8 @@
         });
     }
 
-    // Run on page load
     loadData();
+    setInterval(loadData, 5000);
   </script>
 
 </body>
