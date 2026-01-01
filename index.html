@@ -55,21 +55,10 @@
   <script>
     const URL = "https://script.google.com/macros/s/AKfycbyxsLh1BUHoRzAtWz2jq4VUV2MhIKnmPyXUJ5uPqmCVNybN5eBM8T1CT95mImKvOfjw/exec";
 
-    function formatTarikh(isoString) {
-      const d = new Date(isoString);
-      return d.toLocaleDateString("en-GB", {
-        timeZone: "Asia/Kuala_Lumpur"
-      });
-    }
-
-    function formatMasa(isoString) {
-      const d = new Date(isoString);
-      return d.toLocaleTimeString("en-GB", {
-        timeZone: "Asia/Kuala_Lumpur",
-        hour: "2-digit",
-        minute: "2-digit",
-        second: "2-digit"
-      });
+    // Format the current date in Malaysia
+    function getCurrentDateMalaysia() {
+      const now = new Date();
+      return now.toLocaleDateString("en-GB", { timeZone: "Asia/Kuala_Lumpur" });
     }
 
     function renderTable(data, containerId, emptyMessage) {
@@ -78,12 +67,6 @@
       if (!data || data.length === 0) {
         container.innerHTML = `<div class="empty">${emptyMessage}</div>`;
         return;
-      }
-
-      // Set date header using data
-      if (data[0].Tarikh && containerId === "table1") {
-        document.getElementById("tarikh930").textContent =
-          "Tarikh : " + formatTarikh(data[0].Tarikh);
       }
 
       const table = document.createElement("table");
@@ -101,17 +84,9 @@
       const tbody = table.createTBody();
       data.forEach(row => {
         const tr = tbody.insertRow();
-
-        Object.entries(row).forEach(([key, value]) => {
+        Object.values(row).forEach(value => {
           const td = tr.insertCell();
-
-          if (key === "Tarikh" && value) {
-            td.textContent = formatTarikh(value);
-          } else if (key === "Masa" && value) {
-            td.textContent = formatMasa(value);
-          } else {
-            td.textContent = value;
-          }
+          td.textContent = value;
         });
       });
 
@@ -119,6 +94,9 @@
     }
 
     function loadData() {
+      // Set the Tarikh header to the current date in Malaysia
+      document.getElementById("tarikh930").textContent = "Tarikh : " + getCurrentDateMalaysia();
+
       fetch(URL)
         .then(res => res.json())
         .then(data => {
