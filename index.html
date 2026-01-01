@@ -57,23 +57,6 @@
   <script>
     const URL = "https://script.google.com/macros/s/AKfycbyxsLh1BUHoRzAtWz2jq4VUV2MhIKnmPyXUJ5uPqmCVNybN5eBM8T1CT95mImKvOfjw/exec";
 
-    function formatTarikh(isoString) {
-      const d = new Date(isoString);
-      return d.toLocaleDateString("en-GB", {
-        timeZone: "Asia/Kuala_Lumpur"
-      });
-    }
-
-    function formatMasa(isoString) {
-      const d = new Date(isoString);
-      return d.toLocaleTimeString("en-GB", {
-        timeZone: "Asia/Kuala_Lumpur",
-        hour: "2-digit",
-        minute: "2-digit",
-        second: "2-digit"
-      });
-    }
-
     function renderTable(data, containerId, emptyMessage) {
       const container = document.getElementById(containerId);
 
@@ -102,18 +85,6 @@
       const tbody = table.createTBody();
       data.forEach(row => {
         const tr = tbody.insertRow();
-
-        Object.entries(row).forEach(([key, value]) => {
-          const td = tr.insertCell();
-
-          if (key === "Tarikh" && value) {
-            td.textContent = formatTarikh(value);
-          } else if (key === "Masa" && value) {
-            td.textContent = formatMasa(value);
-          } else {
-            td.textContent = value;
-          }
-        });
       });
 
       container.appendChild(table);
