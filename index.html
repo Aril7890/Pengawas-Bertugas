@@ -120,8 +120,8 @@
       fetch(URL)
         .then(res => res.json())
         .then(data => {
-          renderTable(data.table1, "table1", "No data for 9:30");
-          renderTable(data.table2, "table2", "No data for 10:30");
+          renderTable(data.table1, "table1", "Tiada data");
+          renderTable(data.table2, "table2", "Tiada data");
         })
         .catch(err => {
           console.error("Fetch error:", err);
