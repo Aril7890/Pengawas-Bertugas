@@ -39,8 +39,11 @@
     }
 
     .table-header {
-      -webkit-text-stroke-width: 1px; /* The width of the outline */
-      -webkit-text-stroke-color: white; /* The color of the outline */
+      text-shadow:
+        -1px -1px 0 #ffffff,
+         1px -1px 0 #ffffff,
+        -1px  1px 0 #ffffff,
+         1px  1px 0 #ffffff; /* The color of the outline */
       color: black; /* The fill color of the text */
       display: flex;
       justify-content: space-between;
